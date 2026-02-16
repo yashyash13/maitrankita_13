@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ankita Mukhopadhyay — Artist & Creator</title>
+    <meta name="description"
+        content="Explore and purchase original artwork by Ankita Mukhopadhyay. Contemporary paintings, portraits, and abstract art.">
+    <meta name="keywords"
+        content="art, paintings, contemporary art, Ankita Mukhopadhyay, original artwork, buy art online">
+    <meta property="og:title" content="Ankita Mukhopadhyay — Artist & Creator">
+    <meta property="og:description" content="Explore and purchase original artwork by Ankita Mukhopadhyay.">
+    <meta property="og:type" content="website">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700&family=Dancing+Script:wght@700&display=swap"
+        rel="stylesheet">
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursorFollower"></div>
+
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-line"></div>
+            <span class="preloader-text">ANKITA MUKHOPADHYAY</span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <a href="#" class="nav-logo" aria-label="Home">
+            <div class="logo-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
+                        stroke="url(#logoGrad)" stroke-width="1.5" />
+                    <circle cx="8" cy="12" r="1.5" fill="#d32f2f" />
+                    <circle cx="12" cy="8" r="1.5" fill="#ffd700" />
+                    <circle cx="16" cy="12" r="1.5" fill="#1e5e6e" />
+                    <path d="M17 17L21 21" stroke="url(#logoGrad)" stroke-width="1.5" stroke-linecap="round" />
+                    <defs>
+                        <linearGradient id="logoGrad" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#f0ebe3" />
+                            <stop offset="100%" stop-color="#c9a84c" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <span class="logo-text">ANKITA</span>
+        </a>
+        <div class="nav-links" id="navLinks">
+            <a href="#home" class="nav-link active" data-section="home">Home</a>
+            <a href="#gallery" class="nav-link" data-section="gallery">Gallery</a>
+            <a href="#about" class="nav-link" data-section="about">About</a>
+            <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+        </div>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <canvas id="heroCanvas"></canvas>
+        <div class="hero-content">
+            <div class="hero-tag">
+                <div class="tag-line"></div>
+                <span>CONTEMPORARY ARTIST</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="title-line"><span class="title-word text-gradient-gold" data-delay="0">Ankita</span></span>
+                <span class="title-line"><span class="title-word text-gradient-gold"
+                        data-delay="1">Mukhopadhyay</span></span>
+            </h1>
+            <p class="hero-subtitle">✨ I paint stories in colors — original artworks that speak to the soul</p>
+            <div class="hero-actions">
+                <a href="#gallery" class="btn btn-primary" id="exploreBtn">
+                    <span>Explore Artworks</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="hero-scroll-indicator" id="scrollIndicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+        <div class="hero-cursor-hint" id="cursorHint">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path
+                    d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+            </svg>
+            <span>Move your cursor around</span>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section" id="gallery">
+        <div class="section-header">
+            <div class="section-tag">
+                <div class="tag-line"></div>
+                <span>COLLECTION</span>
+            </div>
+            <h2 class="section-title">Featured Artworks</h2>
+            <p class="section-subtitle">Each piece tells a story — discover the one that resonates with you</p>
+        </div>
+
+        <div class="gallery-filters" id="galleryFilters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="abstract">Abstract</button>
+            <button class="filter-btn" data-filter="portrait">Portrait</button>
+            <button class="filter-btn" data-filter="landscape">Landscape</button>
+            <button class="filter-btn" data-filter="botanical">Botanical</button>
+        </div>
+
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Art Card 1: FROM INSTAGRAM -->
+            <div class="art-card" data-category="portrait" id="artCard1">
+                <div class="art-card-image">
+                    <img src="https://placehold.co/600x800/0a0a0f/c9a84c?text=Test+Image" alt="The Artist's Muse"
+                        loading="lazy" style="object-position: top;">
+                    <div class="art-card-overlay">
+                        <button class="art-quick-view" data-art="1">Quick View</button>
+                    </div>
+                </div>
+                <div class="art-card-info">
+                    <h3>The Artist's Muse</h3>
+                    <p class="art-medium">Featured • Portrait</p>
+                    <div class="art-card-footer">
+                        <span class="art-price">View on Insta</span>
+                        <a href="https://www.instagram.com/p/CoO-udLyTNg/" target="_blank" class="art-buy-btn"
+                            style="text-decoration:none; display:inline-block; text-align:center; padding:0.5rem 1rem;">Visit</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Art Card 2 -->
+            <div class="art-card" data-category="portrait" id="artCard2">
+                <div class="art-card-image">
+                    <img src="https://placehold.co/600x800/0a0a0f/c9a84c?text=Test+Image" alt="Golden Hour Portrait"
+                        loading="lazy">
+                    <div class="art-card-overlay">
+                        <button class="art-quick-view" data-art="2">Quick View</button>
+                    </div>
+                </div>
+                <div class="art-card-info">
+                    <h3>Golden Hour</h3>
+                    <p class="art-medium">Acrylic on Canvas • 18" × 24"</p>
+                    <div class="art-card-footer">
+                        <span class="art-price">₹8,900</span>
+                        <button class="art-buy-btn" data-art="2">Inquire</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Art Card 3 -->
+            <div class="art-card" data-category="landscape" id="artCard3">
+                <div class="art-card-image">
+                    <img src="https://placehold.co/600x800/0a0a0f/c9a84c?text=Test+Image"
+                        alt="Misty Mountains Landscape" loading="lazy">
+                    <div class="art-card-overlay">
+                        <button class="art-quick-view" data-art="3">Quick View</button>
+                    </div>
+                </div>
+                <div class="art-card-info">
+                    <h3>Misty Mountains</h3>
+                    <p class="art-medium">Watercolor & Ink • 20" × 30"</p>
+                    <div class="art-card-footer">
+                        <span class="art-price">₹15,000</span>
+                        <button class="art-buy-btn" data-art="3">Inquire</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Art Card 4 -->
+            <div class="art-card" data-category="abstract" id="artCard4">
+                <div class="art-card-image">
+                    <img src="https://placehold.co/600x800/0a0a0f/c9a84c?text=Test+Image" alt="Crimson Cascade Abstract"
+                        loading="lazy">
+                    <div class="art-card-overlay">
+                        <button class="art-quick-view" data-art="4">Quick View</button>
+                    </div>
+                </div>
+                <div class="art-card-info">
+                    <h3>Crimson Cascade</h3>
+                    <p class="art-medium">Mixed Media • 30" × 40"</p>
+                    <div class="art-card-footer">
+                        <span class="art-price">₹22,000</span>
+                        <button class="art-buy-btn" data-art="4">Inquire</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Art Card 5 -->
+            <div class="art-card" data-category="botanical" id="artCard5">
+                <div class="art-card-image">
+                    <img src="https://placehold.co/600x800/0a0a0f/c9a84c?text=Test+Image" alt="Flora Dreams Botanical"
+                        loading="lazy">
+                    <div class="art-card-overlay">
+                        <button class="art-quick-view" data-art="5">Quick View</button>
+                    </div>
+                </div>
+                <div class="art-card-info">
+                    <h3>Flora Dreams</h3>
+                    <p class="art-medium">Watercolor on Paper • 16" × 20"</p>
+                    <div class="art-card-footer">
+                        <span class="art-price">₹6,500</span>
+                        <button class="art-buy-btn" data-art="5">Inquire</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Art Card 6 -->
+            <div class="art-card" data-category="portrait" id="artCard6">
+                <div class="art-card-image">
+                    <img src="https://placehold.co/600x800/0a0a0f/c9a84c?text=Test+Image" alt="Cosmic Dance Portrait"
+                        loading="lazy">
+                    <div class="art-card-overlay">
+                        <button class="art-quick-view" data-art="6">Quick View</button>
+                    </div>
+                </div>
+                <div class="art-card-info">
+                    <h3>Cosmic Dance</h3>
+                    <p class="art-medium">Oil on Canvas • 24" × 30"</p>
+                    <div class="art-card-footer">
+                        <span class="art-price">₹18,500</span>
+                        <button class="art-buy-btn" data-art="6">Inquire</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="gallery-cta">
+            <a href="https://www.instagram.com/maitrankita/" target="_blank" rel="noopener" class="btn btn-primary">
+                <span>View More on Instagram</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M7 17L17 7M17 7H7M17 7v10" />
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="about-container">
+            <div class="about-image-col">
+                <div class="about-image-wrapper">
+                    <div class="about-image-frame">
+                        <img src="https://placehold.co/600x800/0a0a0f/c9a84c?text=Test+Image"
+                            alt="Ankita Mukhopadhyay - Artist at work" loading="lazy">
+                    </div>
+                    <div class="about-image-accent"></div>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <span class="stat-number" data-count="40">0</span>
+                            <span class="stat-label">Artworks</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" data-count="2600">0</span>
+                            <span class="stat-label">Followers</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" data-count="5">0</span>
+                            <span class="stat-label">Years</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-text-col">
+                <div class="section-tag">
+                    <div class="tag-line"></div>
+                    <span>ABOUT THE ARTIST</span>
+                </div>
+                <h2 class="about-title">Every Brushstroke<br><em>Tells a Story</em></h2>
+                <p class="about-text">
+                    I'm Ankita Mukhopadhyay, a contemporary artist passionate about capturing the raw emotions and
+                    invisible threads that connect us to the world around us. My work spans across multiple mediums —
+                    from oil on canvas to watercolor, mixed media to digital art.
+                </p>
+                <p class="about-text">
+                    Each piece I create is a conversation between color, texture, and feeling. I believe art should
+                    not just be seen — it should be felt. Through bold abstracts, intimate portraits, and dreamlike
+                    landscapes, I invite you to experience the world through my eyes.
+                </p>
+                <p class="about-text">
+                    My journey as an artist has been one of constant exploration and growth. I draw inspiration from
+                    nature, human connection, and the beautiful chaos of everyday life.
+                </p>
+                <div class="about-actions">
+                    <a href="https://www.instagram.com/maitrankita/" target="_blank" rel="noopener"
+                        class="btn btn-primary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="5" />
+                            <circle cx="12" cy="12" r="5" />
+                            <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+                        </svg>
+                        <span>Follow My Journey</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Marquee -->
+    <section class="marquee-section">
+        <div class="marquee-track">
+            <div class="marquee-content">
+                <span class="marquee-item">★ "Absolutely breathtaking work" </span>
+                <span class="marquee-item">★ "The colors speak to my soul" </span>
+                <span class="marquee-item">★ "A true visionary artist" </span>
+                <span class="marquee-item">★ "Every piece is a masterpiece" </span>
+                <span class="marquee-item">★ "Art that transforms spaces" </span>
+                <span class="marquee-item">★ "Absolutely breathtaking work" </span>
+                <span class="marquee-item">★ "The colors speak to my soul" </span>
+                <span class="marquee-item">★ "A true visionary artist" </span>
+                <span class="marquee-item">★ "Every piece is a masterpiece" </span>
+                <span class="marquee-item">★ "Art that transforms spaces" </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="contact-container">
+            <div class="contact-info-col">
+                <div class="section-tag">
+                    <div class="tag-line"></div>
+                    <span>GET IN TOUCH</span>
+                </div>
+                <h2 class="contact-title">Let's Create<br><em>Together</em></h2>
+                <p class="contact-text">
+                    Interested in purchasing a piece, commissioning custom artwork, or collaborating?
+                    I'd love to hear from you. Reach out and let's bring your vision to life.
+                </p>
+                <div class="contact-links">
+                    <a href="https://www.instagram.com/maitrankita/" target="_blank" rel="noopener" class="contact-link"
+                        id="contactInstagram">
+                        <div class="contact-link-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" />
+                                <circle cx="12" cy="12" r="5" />
+                                <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="contact-link-label">Instagram</span>
+                            <span class="contact-link-value">@maitrankita</span>
+                        </div>
+                    </a>
+                    <a href="mailto:hello@ankitaart.com" class="contact-link" id="contactEmail">
+                        <div class="contact-link-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="2" y="4" width="20" height="16" rx="2" />
+                                <path d="M22 4l-10 8L2 4" />
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="contact-link-label">Email</span>
+                            <span class="contact-link-value">hello@ankitaart.com</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="contact-form-col">
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" id="formName" name="name" placeholder=" " required>
+                        <label for="formName">Your Name</label>
+                        <div class="form-line"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="formEmail" name="email" placeholder=" " required>
+                        <label for="formEmail">Email Address</label>
+                        <div class="form-line"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="formSubject" name="subject" placeholder=" " required>
+                        <label for="formSubject">Subject</label>
+                        <div class="form-line"></div>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="formMessage" name="message" rows="4" placeholder=" " required></textarea>
+                        <label for="formMessage">Your Message</label>
+                        <div class="form-line"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
+                        <span>Send Message</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-signature">Ankita Mukhopadhyay</span>
+                <p class="footer-tagline">Contemporary Artist & Creator</p>
+            </div>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-social-icons">
+                <a href="https://www.instagram.com/maitrankita/" target="_blank" rel="noopener" aria-label="Instagram">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="2" width="20" height="20" rx="5" />
+                        <circle cx="12" cy="12" r="5" />
+                        <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+                    </svg>
+                </a>
+                <a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z" />
+                        <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor"
+                            stroke="none" />
+                    </svg>
+                </a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Ankita Mukhopadhyay. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Art Modal -->
+    <div class="art-modal" id="artModal">
+        <div class="art-modal-backdrop" id="artModalBackdrop"></div>
+        <div class="art-modal-content" id="artModalContent">
+            <button class="art-modal-close" id="artModalClose">&times;</button>
+            <div class="art-modal-image">
+                <img id="artModalImg" src="" alt="">
+            </div>
+            <div class="art-modal-info">
+                <h3 id="artModalTitle"></h3>
+                <p id="artModalMedium"></p>
+                <span class="art-price" id="artModalPrice"></span>
+                <a href="https://www.instagram.com/maitrankita/" target="_blank" rel="noopener" class="btn btn-primary"
+                    style="margin-top: 1.5rem; display: inline-flex;">
+                    <span>Inquire via Instagram</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>< ! - -   D e p l o y m e n t   T r i g g e r   - - >  
+ 
